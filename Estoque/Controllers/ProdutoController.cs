@@ -61,12 +61,12 @@ public class ProdutoController : ControllerBase
 
 
 	[HttpPut("quantidade/{id}")]
-	public ActionResult AtualizandoQuantidadeProdutoEstoque(int id, int quantidade)
+	public async Task<ActionResult> AtualizandoQuantidadeProdutoEstoque(int id,[FromBody] int quantidade)
 	{
 		var resultado = _estoqueService.AtualizandoQuantidadeEstoque(id, quantidade);
         if (resultado == false)
         {
-			return BadRequest("Erro, quantidade pedida È maior que a quantidade que h· no estoque");
+			return BadRequest("Erro, quantidade pedida √© maior que a quantidade que h√° no estoque");
         }
 
 		return NoContent();
@@ -84,7 +84,7 @@ public class ProdutoController : ControllerBase
 	}
 
 	[HttpPost("teste")]
-	public ActionResult ReceberItemPedido( ReadItemPedidoDto readItemPedidoDto)
+	public ActionResult ReceberItemPedido([FromBody] ReadItemPedidoDto readItemPedidoDto)
 	{
         Console.WriteLine("Entrei na rota");
         return Ok(readItemPedidoDto);
